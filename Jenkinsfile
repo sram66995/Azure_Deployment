@@ -2,7 +2,6 @@ pipeline {
     agent any
 
     environment {
-        DOCKER_USER = "sanjayram"
         IMAGE_TAG = "latest"
     }
 
