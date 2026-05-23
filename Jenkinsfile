@@ -5,7 +5,7 @@ pipeline {
         IMAGE_TAG = "latest"
         DOCKER_USER = ""
     }
-
+    stages {
         stage('Docker Login') {
             steps {
                 script {
