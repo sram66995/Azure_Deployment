@@ -3,18 +3,19 @@ pipeline {
 
     environment {
         IMAGE_TAG = "latest"
+        DOCKER_USER = "sanjayram"
     }
+
     stages {
-            stage('Docker Login') {
+
+        stage('Docker Login') {
             steps {
                 script {
                     withCredentials([usernamePassword(credentialsId: 'dockerhub-creds', usernameVariable: 'USER', passwordVariable: 'PASS')]) {
-        
                         sh '''
+                        echo "Logging into Docker Hub..."
                         echo $PASS | docker login -u $USER --password-stdin
                         '''
-        
-                        env.DOCKER_USER = USER
                     }
                 }
             }
