@@ -4,7 +4,7 @@ pipeline {
     environment {
         IMAGE_TAG = "latest"
     }
-
+    stages {
             stage('Docker Login') {
             steps {
                 script {
