@@ -6,15 +6,12 @@ pipeline {
         DOCKER_USER = ""
     }
 
-    stages {
-
         stage('Docker Login') {
             steps {
                 script {
                     withCredentials([usernamePassword(credentialsId: 'dockerhub-creds', usernameVariable: 'USER', passwordVariable: 'PASS')]) {
-                        env.DOCKER_USER = USER
-
                         sh '''
+                        echo "Logging into Docker Hub..."
                         echo $PASS | docker login -u $USER --password-stdin
                         '''
                     }
