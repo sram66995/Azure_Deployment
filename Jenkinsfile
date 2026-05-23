@@ -3,7 +3,6 @@ pipeline {
 
     environment {
         IMAGE_TAG = "latest"
-        DOCKER_USER = ""
     }
     stages {
         stage('Docker Login') {
