@@ -8,6 +8,16 @@ pipeline {
 
     stages {
 
+        stage('Test Credentials') {
+    steps {
+        script {
+            withCredentials([usernamePassword(credentialsId: 'dockerhub-creds', usernameVariable: 'U', passwordVariable: 'P')]) {
+                sh 'echo "Credentials loaded successfully for $U"'
+            }
+        }
+    }
+}
+
         stage('Docker Login') {
             steps {
                 script {
