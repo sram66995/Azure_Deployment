@@ -5,20 +5,16 @@ pipeline {
         IMAGE_TAG = "latest"
     }
 
-    stages {
-
-        stage('Docker Login') {
+            stage('Docker Login') {
             steps {
                 script {
                     withCredentials([usernamePassword(credentialsId: 'dockerhub-creds', usernameVariable: 'USER', passwordVariable: 'PASS')]) {
-
-                        // SAVE USER globally for next stages
-                        env.DOCKER_USER = USER
-
+        
                         sh '''
-                        echo "Logging into Docker Hub..."
                         echo $PASS | docker login -u $USER --password-stdin
                         '''
+        
+                        env.DOCKER_USER = USER
                     }
                 }
             }
