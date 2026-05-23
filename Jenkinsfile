@@ -1,64 +1,117 @@
 pipeline {
     agent any
 
+    environment {
+        DOCKER_USER = "sanjayram"
+        IMAGE_TAG = "latest"
+    }
+
     stages {
+
+        stage('Docker Login') {
+            steps {
+                withCredentials([usernamePassword(credentialsId: 'dockerhub-creds', usernameVariable: 'USER', passwordVariable: 'PASS')]) {
+                    sh '''
+                    echo $PASS | docker login -u $USER --password-stdin
+                    '''
+                }
+            }
+        }
 
         stage('Frontend') {
             steps {
-                sh '''
-                cd frontend
-                docker build -t frontend .
-                docker stop frontend || true
-                docker rm frontend || true
-                docker run -d --name frontend -p 3000:3000 frontend
-                '''
+                withCredentials([usernamePassword(credentialsId: 'dockerhub-creds', usernameVariable: 'USER', passwordVariable: 'PASS')]) {
+                    sh '''
+                    cd frontend
+
+                    docker build -t $USER/frontend:$IMAGE_TAG .
+                    docker push $USER/frontend:$IMAGE_TAG
+
+                    docker stop frontend || true
+                    docker rm frontend || true
+
+                    docker run -d --name frontend -p 3000:3000 $USER/frontend:$IMAGE_TAG
+                    '''
+                }
             }
         }
 
         stage('API Gateway') {
             steps {
-                sh '''
-                cd api-gateway
-                docker build -t api-gateway .
-                docker stop gateway || true
-                docker rm gateway || true
-                docker run -d --name gateway -p 5000:5000 api-gateway
-                '''
+                withCredentials([usernamePassword(credentialsId: 'dockerhub-creds', usernameVariable: 'USER', passwordVariable: 'PASS')]) {
+                    sh '''
+                    cd api-gateway
+
+                    docker build -t $USER/api-gateway:$IMAGE_TAG .
+                    docker push $USER/api-gateway:$IMAGE_TAG
+
+                    docker stop gateway || true
+                    docker rm gateway || true
+
+                    docker run -d --name gateway -p 5000:5000 $USER/api-gateway:$IMAGE_TAG
+                    '''
+                }
             }
         }
 
         stage('Auth Service') {
             steps {
-                sh '''
-                cd auth-service
-                docker build -t auth-service .
-                docker stop auth || true
-                docker rm auth || true
-                docker run -d --name auth -p 5003:5003 auth-service
-                '''
+                withCredentials([usernamePassword(credentialsId: 'dockerhub-creds', usernameVariable: 'USER', passwordVariable: 'PASS')]) {
+                    sh '''
+                    cd auth-service
+
+                    docker build -t $USER/auth-service:$IMAGE_TAG .
+                    docker push $USER/auth-service:$IMAGE_TAG
+
+                    docker stop auth || true
+                    docker rm auth || true
+
+                    docker run -d --name auth -p 5003:5003 $USER/auth-service:$IMAGE_TAG
+                    '''
+                }
             }
         }
 
         stage('Order Service') {
             steps {
-                sh '''
-                cd order-service
-                docker build -t order-service .
-                docker stop order || true
-                docker rm order || true
-                docker run -d --name order -p 5001:5001 order-service
-                '''
+                withCredentials([usernamePassword(credentialsId: 'dockerhub-creds', usernameVariable: 'USER', passwordVariable: 'PASS')]) {
+                    sh '''
+                    cd order-service
+
+                    docker build -t $USER/order-service:$IMAGE_TAG .
+                    docker push $USER/order-service:$IMAGE_TAG
+
+                    docker stop order || true
+                    docker rm order || true
+
+                    docker run -d --name order -p 5001:5001 $USER/order-service:$IMAGE_TAG
+                    '''
+                }
             }
         }
 
         stage('Payment Service') {
             steps {
+                withCredentials([usernamePassword(credentialsId: 'dockerhub-creds', usernameVariable: 'USER', passwordVariable: 'PASS')]) {
+                    sh '''
+                    cd payment-service
+
+                    docker build -t $USER/payment-service:$IMAGE_TAG .
+                    docker push $USER/payment-service:$IMAGE_TAG
+
+                    docker stop payment || true
+                    docker rm payment || true
+
+                    docker run -d --name payment -p 5002:5002 $USER/payment-service:$IMAGE_TAG
+                    '''
+                }
+            }
+        }
+
+        stage('Cleanup') {
+            steps {
                 sh '''
-                cd payment-service
-                docker build -t payment-service .
-                docker stop payment || true
-                docker rm payment || true
-                docker run -d --name payment -p 5002:5002 payment-service
+                docker system prune -f
                 '''
             }
         }
@@ -66,10 +119,10 @@ pipeline {
 
     post {
         success {
-            echo "Build and Deployment SUCCESS"
+            echo "✅ CI/CD Pipeline SUCCESS"
         }
         failure {
-            echo "Build FAILED"
+            echo "❌ CI/CD Pipeline FAILED"
         }
     }
 }
