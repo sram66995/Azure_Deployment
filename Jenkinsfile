@@ -11,7 +11,7 @@ pipeline {
 stage('Docker Login Test') {
     steps {
         sh '''
-        docker login -u sanjayram -p YOUR_PASSWORD
+        docker login -u sanjayram -p Sanhema12.
         '''
     }
 }
