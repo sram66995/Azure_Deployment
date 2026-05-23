@@ -8,14 +8,11 @@ pipeline {
 
     stages {
 
- stage('Test Credentials') {
+stage('Docker Login Test') {
     steps {
-        script {
-            echo "Checking credential..."
-            withCredentials([usernamePassword(credentialsId: 'dockerhub-creds', usernameVariable: 'U', passwordVariable: 'P')]) {
-                sh 'echo "SUCCESS: $U"'
-            }
-        }
+        sh '''
+        docker login -u sanjayram -p YOUR_PASSWORD
+        '''
     }
 }
 
