@@ -10,7 +10,7 @@ function Login() {
     try {
 
       const response = await axios.post(
-        "/login",
+        "https://zomoto.azure-api.net/login",
         {
           username: "admin",
           password: "admin"

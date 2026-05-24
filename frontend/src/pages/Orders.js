@@ -8,7 +8,7 @@ function Orders() {
   const getOrders = async () => {
 
     const response = await axios.get(
-      "/orders"
+      "https://zomoto.azure-api.net/orders"
     );
 
     setOrders(response.data.orders);

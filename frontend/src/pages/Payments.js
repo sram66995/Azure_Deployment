@@ -5,7 +5,7 @@ function Payments() {
   const getPayments = async () => {
 
     const response = await axios.get(
-      "/payments"
+      "https://zomoto.azure-api.net/payments"
     );
 
     alert(response.data.message);
