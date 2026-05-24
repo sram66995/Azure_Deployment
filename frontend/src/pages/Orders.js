@@ -8,7 +8,7 @@ function Orders() {
   const getOrders = async () => {
 
     const response = await axios.get(
-      "/api/orders"
+      "/orders"
     );
 
     setOrders(response.data.orders);

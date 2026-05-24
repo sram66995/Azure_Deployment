@@ -5,7 +5,7 @@ function Payments() {
   const getPayments = async () => {
 
     const response = await axios.get(
-      "/api/payments"
+      "/payments"
     );
 
     alert(response.data.message);
