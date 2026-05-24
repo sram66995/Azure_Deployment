@@ -7,6 +7,7 @@ spec:
   rules:
   - http:
       paths:
+
       - path: /
         pathType: Prefix
         backend:
@@ -15,10 +16,26 @@ spec:
             port:
               number: 80
 
-      - path: /api
+      - path: /login
         pathType: Prefix
         backend:
           service:
-            name: api-gateway-service
+            name: auth-service
             port:
-              number: 5000
+              number: 5003
+
+      - path: /orders
+        pathType: Prefix
+        backend:
+          service:
+            name: order-service
+            port:
+              number: 5001
+
+      - path: /payments
+        pathType: Prefix
+        backend:
+          service:
+            name: payment-service
+            port:
+              number: 5002
