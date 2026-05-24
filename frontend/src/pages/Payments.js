@@ -5,7 +5,7 @@ function Payments() {
   const getPayments = async () => {
 
     const response = await axios.get(
-      "http://4.224.187.156:5000/api/payments"
+      "/api/payments"
     );
 
     alert(response.data.message);

@@ -10,7 +10,7 @@ function Login() {
     try {
 
       const response = await axios.post(
-        "http://4.224.187.156:5000/api/login",
+        "/api/login",
         {
           username: "admin",
           password: "admin"
