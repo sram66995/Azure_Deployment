@@ -8,7 +8,7 @@ function Orders() {
   const getOrders = async () => {
 
     const response = await axios.get(
-      "http://localhost:5000/api/orders"
+      "http://4.224.187.156:5000/api/orders"
     );
 
     setOrders(response.data.orders);

@@ -7,11 +7,17 @@ const app = express();
 app.use(cors());
 app.use(express.json());
 
+/* HOME ROUTE */
+app.get("/", (req, res) => {
+  res.send("API Gateway Running Successfully");
+});
+
 /* AUTH SERVICE */
 app.post("/api/login", async (req, res) => {
   try {
+
     const response = await axios.post(
-      "http://host.docker.internal:5003/login",
+      "http://auth-service:5003/login",
       req.body
     );
 
@@ -30,7 +36,7 @@ app.get("/api/orders", async (req, res) => {
   try {
 
     const response = await axios.get(
-      "http://host.docker.internal:5001/orders"
+      "http://order-service:5001/orders"
     );
 
     res.json(response.data);
@@ -48,7 +54,7 @@ app.get("/api/payments", async (req, res) => {
   try {
 
     const response = await axios.get(
-      "http://host.docker.internal:5002/payments"
+      "http://payment-service:5002/payments"
     );
 
     res.json(response.data);
