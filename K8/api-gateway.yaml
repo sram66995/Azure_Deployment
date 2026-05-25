@@ -19,7 +19,7 @@ spec:
     spec:
       containers:
         - name: api-gateway
-          image: zomoto.azurecr.io/api-gateway:26
+          image: zomoto.azurecr.io/api-gateway:33
           ports:
             - containerPort: 5000
 
