@@ -16,7 +16,7 @@ spec:
             port:
               number: 80
 
-      - path: /login
+      - path: /api/login
         pathType: Prefix
         backend:
           service:
@@ -24,7 +24,7 @@ spec:
             port:
               number: 5003
 
-      - path: /orders
+      - path: /api/orders
         pathType: Prefix
         backend:
           service:
@@ -32,7 +32,7 @@ spec:
             port:
               number: 5001
 
-      - path: /payments
+      - path: /api/payments
         pathType: Prefix
         backend:
           service:

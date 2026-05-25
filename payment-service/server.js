@@ -5,7 +5,7 @@ const app = express();
 
 app.use(cors());
 
-app.get("/payments", (req, res) => {
+app.get("/api/payments", (req, res) => {
   res.json({
     message: "Payment Service Working"
   });

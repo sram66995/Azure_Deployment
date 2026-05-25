@@ -5,7 +5,7 @@ const app = express();
 
 app.use(cors());
 
-app.get("/orders", (req, res) => {
+app.get("/api/orders", (req, res) => {
   res.json({
     message: "Orders API Working",
     orders: [
