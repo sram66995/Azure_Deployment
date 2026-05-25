@@ -38,21 +38,6 @@ pipeline {
             }
         }
 
-        stage('API Gateway') {
-            steps {
-                sh '''
-                cd api-gateway
-
-                docker build -t $ACR_NAME/api-gateway:$IMAGE_TAG .
-                docker push $ACR_NAME/api-gateway:$IMAGE_TAG
-
-                docker stop gateway || true
-                docker rm gateway || true
-
-                '''
-            }
-        }
-
         stage('Auth Service') {
             steps {
                 sh '''
