@@ -2,7 +2,7 @@ pipeline {
     agent any
 
     environment {
-        ACR_NAME = "zomoto.azurecr.io"
+        ACR_NAME = "sanjay.azurecr.io"
         IMAGE_TAG = "${BUILD_NUMBER}"
     }
 
