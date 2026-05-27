@@ -19,7 +19,7 @@ spec:
     spec:
       containers:
         - name: frontend
-          image: zomoto.azurecr.io/frontend:34
+          image: zomoto.azurecr.io/frontend:35
           ports:
             - containerPort: 3000
 

@@ -11,7 +11,7 @@ pipeline {
         stage('ACR Login') {
             steps {
                 withCredentials([usernamePassword(
-                    credentialsId: '36d759aa-e190-4d9e-b3a6-2f7a64590355',
+                    credentialsId: '9b1f53f5-f8a1-44a3-8283-6e4b6634953f',
                     usernameVariable: 'USER',
                     passwordVariable: 'PASS'
                 )]) {
